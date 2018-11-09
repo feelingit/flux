@@ -1,4 +1,5 @@
 "use strict";
+Object.defineProperty(exports, "__esModule", { value: true });
 const { expect } = require('chai');
 const { EventEmitter } = require('../EventEmitter');
 describe(`EventEmitter`, () => {
