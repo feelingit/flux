@@ -36,9 +36,9 @@ class EventEmitter {
         }
     }
 
-    emit(label: string, action: any) {
+    emit(label: string, payload: any) {
         for (let id in this.listeners[label]) {
-            this.listeners[label][id](action);
+            this.listeners[label][id](payload);
         }
     }
 }

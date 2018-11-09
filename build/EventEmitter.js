@@ -22,9 +22,9 @@ class EventEmitter {
             }
         }
     }
-    emit(label, action) {
+    emit(label, payload) {
         for (let id in this.listeners[label]) {
-            this.listeners[label][id](action);
+            this.listeners[label][id](payload);
         }
     }
 }
