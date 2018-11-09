@@ -7,9 +7,9 @@ describe(`EventEmitter`, () => {
         let result1 = ``;
         let result2 = ``;
         let result3 = ``;
-        testEventEmitter.subscribe(`event1`, function (payload) { result1 = `done`; });
-        testEventEmitter.subscribe(`event1`, function (payload) { result2 = `done`; });
-        testEventEmitter.subscribe(`event2`, function (payload) { result3 = `done`; });
+        testEventEmitter.subscribe(`event1`, (payload) => { result1 = `done`; });
+        testEventEmitter.subscribe(`event1`, (payload) => { result2 = `done`; });
+        testEventEmitter.subscribe(`event2`, (payload) => { result3 = `done`; });
         // должны выполниться 2 обработчика event1 // result = 6
         testEventEmitter.emit(`event1`, `some-payload`);
         // должен выполниться 1 обработчик event2 // result = 9
@@ -24,26 +24,22 @@ describe(`EventEmitter`, () => {
             result3: `done`
         });
     });
-    it(`EventEmitter.emit - памаретры передаются корректно`, () => {
+    it(`EventEmitter.emit - параметры передаются корректно`, () => {
         let testEventEmitter = new EventEmitter();
         let result = ``;
-        testEventEmitter.subscribe(`event1`, function (payload) { result = payload; });
-        testEventEmitter.emit(`event1`, `done`);
+        testEventEmitter.subscribe(`event`, (payload) => { result = payload; });
+        testEventEmitter.emit(`event`, `done`);
         expect(result).to.equal(`done`);
     });
     it(`EventEmitter.emit - все обработчики удаляются`, () => {
         let testEventEmitter = new EventEmitter();
         let result = 0;
-        let id1 = testEventEmitter.subscribe(`event1`, function (payload) { result += payload; });
-        let id2 = testEventEmitter.subscribe(`event1`, function (payload) { result += payload; });
-        // должны выполниться 2 обработчика event1 // result = 6
-        testEventEmitter.emit(`event1`, 3);
-        testEventEmitter.unsubscribe(id2);
-        // должен выполниться 1 обработчик event1 // result = 9
-        testEventEmitter.emit(`event1`, 3);
-        testEventEmitter.unsubscribe(id1);
-        // обработчиков не осталось, результат не должен меняться
-        testEventEmitter.emit(`event1`, 3);
-        expect(result).to.equal(9);
+        let id = testEventEmitter.subscribe(`event`, (payload) => { result += 1; });
+        // должен выполниться 1 обработчик event // result = 1
+        testEventEmitter.emit(`event`, ``);
+        testEventEmitter.unsubscribe(id);
+        // обработчиков не осталось, результат не должен поменяться
+        testEventEmitter.emit(`event`, ``);
+        expect(result).to.equal(1);
     });
 });
