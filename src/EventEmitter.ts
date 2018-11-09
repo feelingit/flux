@@ -29,13 +29,9 @@ class EventEmitter {
 
     unsubscribe(id: string) {
         for (var label in this.listeners) {
-            for (var listener in this.listeners[label]) {
-                if (listener === id) {
-                    delete this.listeners[label][listener];
-                    if (Object.keys(this.listeners[label]).length === 0) {
-                        delete this.listeners[label];
-                    }
-                }
+            delete this.listeners[label][id];
+            if (Object.keys(this.listeners[label]).length === 0) {
+                delete this.listeners[label];
             }
         }
     }
