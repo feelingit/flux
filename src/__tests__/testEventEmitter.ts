@@ -43,3 +43,5 @@ describe(`EventEmitter`, () => {
         expect(result).to.equal(1);
     });
 });
+
+export {};
