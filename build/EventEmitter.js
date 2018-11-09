@@ -12,7 +12,6 @@ class EventEmitter {
         }
         let id = this.prefix + this.lastID++;
         this.listeners[label][id] = callback;
-        console.log(this.listeners);
         return id;
     }
     unsubscribe(id) {

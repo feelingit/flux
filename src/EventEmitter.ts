@@ -24,7 +24,6 @@ class EventEmitter {
         }
         let id: string = this.prefix + this.lastID++;
         this.listeners[label][id] = callback;
-        console.log(this.listeners);
         return id;
     }
 
