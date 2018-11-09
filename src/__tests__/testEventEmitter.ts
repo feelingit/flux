@@ -2,7 +2,6 @@ const { expect } = require('chai');
 const { EventEmitter } = require('../EventEmitter');
 
 describe(`EventEmitter`, () => {
-
     it(`EventEmitter.subscribe - должна возвращать "ID_3"`, () => {
         let testEventEmitter = new EventEmitter();
         let result: string;
