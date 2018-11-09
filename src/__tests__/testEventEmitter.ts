@@ -29,7 +29,7 @@ describe(`EventEmitter`, () => {
         testEventEmitter.unsubscribe(id2);
         testEventEmitter.emit(`event1`, 3); // должен выполниться 1 обработчик event1 // result = 9
         testEventEmitter.unsubscribe(id1);
-        testEventEmitter.emit(`event1`, 3); // обработчиков не осталось, результат не изменится
+        testEventEmitter.emit(`event1`, 3); // обработчиков не осталось, результат не должен меняться
         expect(result).to.equal(9);
     });
 });
