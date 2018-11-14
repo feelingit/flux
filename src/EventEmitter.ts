@@ -1,8 +1,8 @@
 interface Listeners {
-    [id: string]: Listener;
+    [id: string]: EventListeners;
 }
 
-interface Listener {
+interface EventListeners {
     [id: string]: (action: any) => void;
 }
 
@@ -27,7 +27,7 @@ class EventEmitter {
         return id;
     }
 
-    unsubscribe(id: string) {
+    unsubscribe(id: string): void {
         for (var label in this.listeners) {
             delete this.listeners[label][id];
             if (Object.keys(this.listeners[label]).length === 0) {
@@ -36,7 +36,7 @@ class EventEmitter {
         }
     }
 
-    emit(label: string, payload: any) {
+    emit(label: string, payload: any): void {
         for (let id in this.listeners[label]) {
             this.listeners[label][id](payload);
         }
