@@ -4,7 +4,9 @@
   "description": "",
   "main": ".eslintrc.js",
   "scripts": {
-    "test": "mocha build/__tests__/testEventEmitter.js"
+    "test-1": "mocha build/__tests__/testEventEmitter.js",
+    "test-2": "mocha build/__tests__/testDispatcher.js",
+    "test": "npm run test-1 && npm run test-2"
   },
   "repository": {
     "type": "git",
