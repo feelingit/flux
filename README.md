@@ -1,13 +1,9 @@
 # flux
 
-## Структура проекта
+#### Typescrypt:
 
-`src` - исходники (typescrypt)
-`build` - рабочие скрипты (javascript)
-
-`__tests__` - тесты
-
-### src:
+* `src/*`
+* `src/__tests__/*`
 
 ```
 src/
@@ -18,7 +14,10 @@ src/
     Dispatcher.js
 ```
 
-### build:
+#### Javascript:
+
+* `build/*` 
+* `src/__tests__/*` 
 
 ```
 build/
@@ -27,4 +26,4 @@ build/
         testDispatcher.ts
     EventEmitter.ts
     Dispatcher.ts
-```
+``` 
