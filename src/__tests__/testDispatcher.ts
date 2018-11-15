@@ -34,10 +34,11 @@ describe(`Dispatcher`, () => {
     it(`Dispatcher.dispatch - все обработчики удаляются`, () => {
         let testDispatcher = new Dispatcher();
         let result: number = 0;
-        let id: string = testDispatcher.register((payload: string) => { result += 1; });
+        let cb: (action: any) => void = function (payload: string) { result += 1; };
+        testDispatcher.register(cb);
         // должен выполниться 1 обработчик event // result = 1
         testDispatcher.dispatch(``);
-        testDispatcher.unregister(id);
+        testDispatcher.unregister(cb);
         // обработчиков не осталось, результат не должен поменяться
         testDispatcher.dispatch(``);
         expect(result).to.equal(1);

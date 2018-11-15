@@ -9,12 +9,12 @@ class Dispatcher extends EventEmitter {
         this.label = `DispatcherEvent`;
     }
 
-    register(callback: (action: any) => void): string {
+    register(callback: (action: any) => void): void {
         return super.subscribe(this.label, callback);
     }
 
-    unregister(id: string): void {
-        return super.unsubscribe(id);
+    unregister(callback: (action: any) => void): void {
+        return super.unsubscribe(callback);
     }
 
     dispatch(payload: any): void {

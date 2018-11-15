@@ -34,10 +34,11 @@ describe(`EventEmitter`, () => {
     it(`EventEmitter.emit - все обработчики удаляются`, () => {
         let testEventEmitter = new EventEmitter();
         let result: number = 0;
-        let id: string = testEventEmitter.subscribe(`event`, (payload: string) => { result += 1; });
+        let cb: (action: any) => void = function (payload: string) { result += 1; };
+        testEventEmitter.subscribe(`event`, cb);
         // должен выполниться 1 обработчик event // result = 1
         testEventEmitter.emit(`event`, ``);
-        testEventEmitter.unsubscribe(id);
+        testEventEmitter.unsubscribe(cb);
         // обработчиков не осталось, результат не должен поменяться
         testEventEmitter.emit(`event`, ``);
         expect(result).to.equal(1);

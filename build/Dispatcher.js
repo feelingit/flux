@@ -9,8 +9,8 @@ class Dispatcher extends EventEmitter_1.EventEmitter {
     register(callback) {
         return super.subscribe(this.label, callback);
     }
-    unregister(id) {
-        return super.unsubscribe(id);
+    unregister(callback) {
+        return super.unsubscribe(callback);
     }
     dispatch(payload) {
         return super.emit(this.label, payload);

@@ -3,28 +3,26 @@ Object.defineProperty(exports, "__esModule", { value: true });
 class EventEmitter {
     constructor() {
         this.listeners = {};
-        this.prefix = `ID_`;
-        this.lastID = 1;
     }
     subscribe(label, callback) {
         if (!this.listeners[label]) {
-            this.listeners[label] = {};
+            this.listeners[label] = new Set();
         }
-        let id = this.prefix + this.lastID++;
-        this.listeners[label][id] = callback;
-        return id;
+        this.listeners[label].add(callback);
     }
-    unsubscribe(id) {
+    unsubscribe(callback) {
         for (var label in this.listeners) {
-            delete this.listeners[label][id];
+            this.listeners[label].delete(callback);
             if (Object.keys(this.listeners[label]).length === 0) {
                 delete this.listeners[label];
             }
         }
     }
     emit(label, payload) {
-        for (let id in this.listeners[label]) {
-            this.listeners[label][id](payload);
+        if (!this.listeners[label])
+            return;
+        for (let item of Array.from(this.listeners[label].values())) {
+            item(payload);
         }
     }
 }

@@ -1,35 +1,25 @@
 interface Listeners {
-    [id: string]: EventListeners;
-}
-
-interface EventListeners {
-    [id: string]: (action: any) => void;
+    [id: string]: Set<(action: any) => void>;
 }
 
 class EventEmitter {
 
-    private prefix: string;
     private listeners: Listeners;
-    private lastID: number;
 
     constructor() {
         this.listeners = {};
-        this.prefix = `ID_`;
-        this.lastID = 1;
     }
 
-    subscribe(label: string, callback: (action: any) => void): string {
+    subscribe(label: string, callback: (action: any) => void): void {
         if (!this.listeners[label]) {
-            this.listeners[label] = {};
+            this.listeners[label] = new Set();
         }
-        let id: string = this.prefix + this.lastID++;
-        this.listeners[label][id] = callback;
-        return id;
+        this.listeners[label].add(callback);
     }
 
-    unsubscribe(id: string): void {
+    unsubscribe(callback: (action: any) => void): void {
         for (var label in this.listeners) {
-            delete this.listeners[label][id];
+            this.listeners[label].delete(callback);
             if (Object.keys(this.listeners[label]).length === 0) {
                 delete this.listeners[label];
             }
@@ -37,8 +27,10 @@ class EventEmitter {
     }
 
     emit(label: string, payload: any): void {
-        for (let id in this.listeners[label]) {
-            this.listeners[label][id](payload);
+        if (!this.listeners[label]) return;
+
+        for (let item of Array.from(this.listeners[label].values())) {
+            item(payload);
         }
     }
 }
